@@ -52,18 +52,24 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-600">
             <span className="text-slate-400 mr-1">Network:</span>
-            <span
+            <a
+              href="https://math-figures.vercel.app"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium transition-colors"
             >
               Math Figures
               <Sparkles className="w-3 h-3 text-amber-500" />
-            </span>
-            <span
+            </a>
+            <a
+              href="https://chemistry-figures.vercel.app"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium transition-colors"
             >
               Chemistry Figures
               <Sparkles className="w-3 h-3 text-emerald-500" />
-            </span>
+            </a>
           </div>
 
           <a
