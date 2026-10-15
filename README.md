@@ -1,8 +1,11 @@
-# Physics Figures
+# Vector Physics
 
-A standalone, high-fidelity educational vector diagram generator built with **React 19**, **TypeScript**, **Tailwind CSS**, and **Vite**.
+A standalone, high-fidelity STEM vector diagram studio built with **React 19**, **TypeScript**, **Tailwind CSS**, and **Vite**.
 
-Created based on the reverse engineering of [PhysicsFigures.com](https://physicsfigures.com/), this platform provides physics educators, students, and textbook authors with mathematically precise, publication-ready vector diagrams.
+- **Live URL**: [https://vector-physics.vercel.app](https://vector-physics.vercel.app)
+- **Suite Family**: [Vector Math](https://vector-math.vercel.app) · [Vector Chem](https://vector-chem.vercel.app)
+
+Provides physics educators, students, and textbook authors with mathematically precise, publication-ready vector diagrams.
 
 ---
 
