@@ -126,7 +126,7 @@ export const ProjectileMotion: React.FC<ProjectileMotionProps> = ({
               <path
                 d={pathD}
                 fill="none"
-                stroke={state.color ? '#059669' : '#111827'}
+                stroke={state.color ? '#2563eb' : '#111827'}
                 strokeWidth={2.2}
                 strokeDasharray="6 4"
               />
@@ -137,7 +137,7 @@ export const ProjectileMotion: React.FC<ProjectileMotionProps> = ({
               cx={launchX}
               cy={launchY}
               r={7}
-              fill={state.color ? '#10b981' : '#111827'}
+              fill={state.color ? '#3b82f6' : '#111827'}
               stroke="#111827"
               strokeWidth={1.5}
             />

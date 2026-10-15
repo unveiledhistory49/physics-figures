@@ -68,7 +68,7 @@ export const WaveDiagram: React.FC<WaveDiagramProps> = ({ state, onChange }) => 
     });
   }
 
-  const waveColor = state.color ? '#059669' : '#111827';
+  const waveColor = state.color ? '#2563eb' : '#111827';
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">

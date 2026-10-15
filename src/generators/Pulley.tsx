@@ -55,7 +55,7 @@ export const Pulley: React.FC<PulleyProps> = ({ state, onChange }) => {
   const t2Arrow = computeArrow(stringRightX, mass2Y, 90, 50, 11, 8);
   const g2Arrow = computeArrow(stringRightX, mass2Y + m2Height, 270, 50 * state.mass2, 11, 8);
 
-  const forceColor = state.color ? '#059669' : '#111827';
+  const forceColor = state.color ? '#2563eb' : '#111827';
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">

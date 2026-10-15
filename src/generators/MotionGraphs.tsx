@@ -263,7 +263,7 @@ export const MotionGraphs: React.FC<MotionGraphsProps> = ({ state, onChange }) =
             <path
               d={fullPathD}
               fill="none"
-              stroke={state.color ? '#059669' : '#111827'}
+              stroke={state.color ? '#2563eb' : '#111827'}
               strokeWidth={3.2}
               strokeLinecap="round"
               strokeLinejoin="round"

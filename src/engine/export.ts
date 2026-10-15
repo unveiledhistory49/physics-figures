@@ -17,6 +17,30 @@ export const serializeSvg = (svgElement: SVGSVGElement): string => {
     clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
   }
 
+  // Ensure explicit dimensions on SVG root for standalone Image and canvas rendering
+  const viewBox = svgElement.viewBox?.baseVal;
+  const width = viewBox?.width || svgElement.clientWidth || 600;
+  const height = viewBox?.height || svgElement.clientHeight || 400;
+  if (!clone.getAttribute('width')) {
+    clone.setAttribute('width', String(width));
+  }
+  if (!clone.getAttribute('height')) {
+    clone.setAttribute('height', String(height));
+  }
+
+  // Inject embedded stylesheet so standalone SVG/PNG rendering preserves math text halo and typography
+  const styleEl = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+  styleEl.textContent = `
+    .math-text-stroke { paint-order: stroke fill; stroke-linejoin: round; }
+    text { font-family: 'Times New Roman', Times, serif; }
+  `;
+  let defs = clone.querySelector('defs');
+  if (!defs) {
+    defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    clone.insertBefore(defs, clone.firstChild);
+  }
+  defs.appendChild(styleEl);
+
   return new XMLSerializer().serializeToString(clone);
 };
 

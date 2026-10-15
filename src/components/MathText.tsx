@@ -8,6 +8,7 @@ interface MathTextProps {
   label?: FormattedLabel | string;
   fontSize?: number;
   fill?: string;
+  color?: string;
   strokeColor?: string;
   strokeWidth?: number;
   textAnchor?: 'start' | 'middle' | 'end';
@@ -22,6 +23,7 @@ export const MathText: React.FC<MathTextProps> = ({
   label,
   fontSize = 22,
   fill = '#111827',
+  color,
   strokeColor = '#ffffff',
   strokeWidth = 4,
   textAnchor = 'middle',
@@ -36,6 +38,8 @@ export const MathText: React.FC<MathTextProps> = ({
 
   if (mode === 'none') return null;
 
+  const actualFill = color || fill;
+
   if (mode === 'blank') {
     // Blank line for student worksheets
     const half = blankLength / 2;
@@ -46,7 +50,7 @@ export const MathText: React.FC<MathTextProps> = ({
           y1={y + 6}
           x2={x + half}
           y2={y + 6}
-          stroke={fill}
+          stroke={actualFill}
           strokeWidth={1.5}
         />
       </g>
@@ -55,20 +59,8 @@ export const MathText: React.FC<MathTextProps> = ({
 
   const token: ParsedMathToken = parseMathLabel(rawText, vectorNotation);
 
-  return (
-    <text
-      x={x}
-      y={y}
-      textAnchor={textAnchor}
-      dominantBaseline={dominantBaseline}
-      fontFamily="'Times New Roman', Times, serif"
-      fontSize={fontSize}
-      fill={fill}
-      stroke={strokeColor}
-      strokeWidth={strokeWidth}
-      strokeLinejoin="round"
-      className="math-text-stroke select-none"
-    >
+  const renderContent = () => (
+    <>
       {/* Base token */}
       <tspan
         fontStyle={token.isBold ? 'normal' : 'italic'}
@@ -110,6 +102,48 @@ export const MathText: React.FC<MathTextProps> = ({
           {token.superscript}
         </tspan>
       )}
-    </text>
+    </>
+  );
+
+  const hasHalo = strokeWidth > 0 && strokeColor && strokeColor !== 'none';
+
+  return (
+    <g className="select-none">
+      {/* Halo layer rendered first underneath */}
+      {hasHalo && (
+        <text
+          x={x}
+          y={y}
+          textAnchor={textAnchor}
+          dominantBaseline={dominantBaseline}
+          fontFamily="'Times New Roman', Times, serif"
+          fontSize={fontSize}
+          fill={strokeColor}
+          stroke={strokeColor}
+          strokeWidth={strokeWidth}
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          paintOrder="stroke fill"
+          style={{ paintOrder: 'stroke fill' }}
+          aria-hidden="true"
+        >
+          {renderContent()}
+        </text>
+      )}
+
+      {/* Sharp foreground text rendered on top (guaranteed never covered by stroke) */}
+      <text
+        x={x}
+        y={y}
+        textAnchor={textAnchor}
+        dominantBaseline={dominantBaseline}
+        fontFamily="'Times New Roman', Times, serif"
+        fontSize={fontSize}
+        fill={actualFill}
+        stroke="none"
+      >
+        {renderContent()}
+      </text>
+    </g>
   );
 };

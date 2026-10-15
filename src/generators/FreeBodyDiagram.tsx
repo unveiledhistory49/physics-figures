@@ -117,8 +117,8 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
   };
 
   // Color theme palettes
-  const forceColor = state.color ? '#059669' : '#111827';
-  const componentColor = state.color ? '#047857' : '#4b5563';
+  const forceColor = state.color ? '#2563eb' : '#111827';
+  const componentColor = state.color ? '#0284c7' : '#4b5563';
   const bodyFill = state.color ? '#f1f5f9' : '#e5e7eb';
   const bodyStroke = '#111827';
 

@@ -24,7 +24,7 @@ export const defaultVectorDiagramState: VectorDiagramState = {
       dx: 4,
       dy: 1,
       label: { mode: 'text', text: 'A' },
-      color: '#059669',
+      color: '#2563eb',
     },
     {
       id: 'v2',
@@ -32,7 +32,7 @@ export const defaultVectorDiagramState: VectorDiagramState = {
       dx: 1,
       dy: 3,
       label: { mode: 'text', text: 'B' },
-      color: '#0d9488',
+      color: '#059669',
     },
     {
       id: 'v3',

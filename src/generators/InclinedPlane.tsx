@@ -52,8 +52,8 @@ export const InclinedPlane: React.FC<InclinedPlaneProps> = ({
   const bodyX = rampStartX + rampBaseLength * (1 - slopeRatio);
   const bodyY = groundY - rampHeight * (1 - slopeRatio);
 
-  const forceColor = state.color ? '#059669' : '#111827';
-  const compColor = state.color ? '#047857' : '#6b7280';
+  const forceColor = state.color ? '#2563eb' : '#111827';
+  const compColor = state.color ? '#0284c7' : '#6b7280';
 
   // Ramp normal and parallel directions
   const normalAngle = 90 + state.angle;
