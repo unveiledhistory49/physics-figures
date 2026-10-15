@@ -18,6 +18,7 @@ import {
 interface CanvasToolbarProps {
   svgRef: React.RefObject<SVGSVGElement | null>;
   filename: string;
+  dimensions?: { width: number; height: number };
   canUndo?: boolean;
   canRedo?: boolean;
   onUndo?: () => void;
@@ -27,6 +28,7 @@ interface CanvasToolbarProps {
 export const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   svgRef,
   filename,
+  dimensions,
   canUndo = false,
   canRedo = false,
   onUndo,
@@ -69,88 +71,96 @@ export const CanvasToolbar: React.FC<CanvasToolbarProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between p-2 bg-white border-b border-slate-200 no-print rounded-t-xl">
-      <div className="flex items-center gap-1">
-        {/* Copy Image Button */}
+    <div className="flex flex-wrap items-center justify-between p-2.5 bg-white border-b border-slate-200/90 no-print rounded-t-xl gap-2">
+      <div className="flex items-center gap-1.5 flex-wrap">
+        {/* Copy Image Button - High visibility discipline emerald */}
         <button
           type="button"
           onClick={handleCopy}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all active:scale-95"
-          title="Copy 3x High-DPI PNG to clipboard"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white shadow-sm transition-all active:scale-95"
+          title="Copy 3× High-DPI PNG to clipboard"
         >
           {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-          {copied ? 'Copied PNG!' : 'Copy image'}
+          <span>{copied ? 'Copied PNG!' : 'Copy PNG'}</span>
         </button>
 
         {/* Download PNG */}
         <button
           type="button"
           onClick={handleDownloadPng}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-md hover:bg-slate-100 text-slate-700 transition-colors"
-          title="Download 3x High-Resolution PNG"
+          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-slate-100 text-slate-700 transition-colors border border-slate-200/80 bg-slate-50/50"
+          title="Download 3× High-Resolution PNG"
         >
           <Download className="w-3.5 h-3.5 text-slate-500" />
-          PNG
+          <span>PNG</span>
         </button>
 
         {/* Download SVG */}
         <button
           type="button"
           onClick={handleDownloadSvg}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-md hover:bg-slate-100 text-slate-700 transition-colors"
+          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-slate-100 text-slate-700 transition-colors border border-slate-200/80 bg-slate-50/50"
           title="Download scalable vector SVG"
         >
           <FileCode className="w-3.5 h-3.5 text-slate-500" />
-          SVG
+          <span>SVG</span>
         </button>
 
-        <div className="w-px h-4 bg-slate-200 mx-1" />
+        <div className="w-px h-4 bg-slate-200 mx-0.5 hidden sm:block" />
 
         {/* Print */}
         <button
           type="button"
           onClick={handlePrint}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-md hover:bg-slate-100 text-slate-700 transition-colors"
+          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-slate-100 text-slate-700 transition-colors"
           title="Print figure"
         >
           <Printer className="w-3.5 h-3.5 text-slate-500" />
-          Print
+          <span className="hidden sm:inline">Print</span>
         </button>
 
         {/* Share Link */}
         <button
           type="button"
           onClick={handleShare}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-md hover:bg-slate-100 text-slate-700 transition-colors"
+          className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-slate-100 text-slate-700 transition-colors"
           title="Copy link with current settings"
         >
           {shared ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5 text-slate-500" />}
-          {shared ? 'Link Copied!' : 'Share'}
+          <span>{shared ? 'Copied!' : 'Share'}</span>
         </button>
       </div>
 
-      <div className="flex items-center gap-1">
-        {/* Undo */}
-        <button
-          type="button"
-          disabled={!canUndo}
-          onClick={onUndo}
-          className="p-1.5 rounded-md hover:bg-slate-100 text-slate-600 disabled:opacity-30 disabled:pointer-events-none transition-colors"
-          title="Undo"
-        >
-          <Undo2 className="w-4 h-4" />
-        </button>
+      <div className="flex items-center gap-2">
+        {dimensions && (
+          <span className="text-[11px] font-mono text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md hidden md:inline-block">
+            {dimensions.width}×{dimensions.height} px
+          </span>
+        )}
 
-        {/* Redo */}
-        <button
-          type="button"
-          disabled={!canRedo}
-          onClick={onRedo}
-          className="p-1.5 rounded-md hover:bg-slate-100 text-slate-600 disabled:opacity-30 disabled:pointer-events-none transition-colors"
-          title="Redo"
-        >
-          <Redo2 className="w-4 h-4" />
-        </button>
+        <div className="flex items-center gap-0.5">
+          {/* Undo */}
+          <button
+            type="button"
+            disabled={!canUndo}
+            onClick={onUndo}
+            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+            title="Undo"
+          >
+            <Undo2 className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Redo */}
+          <button
+            type="button"
+            disabled={!canRedo}
+            onClick={onRedo}
+            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+            title="Redo"
+          >
+            <Redo2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { GeneratorKind, GeneratorMetadata } from '../types/figures';
-import { Search, ArrowRight } from 'lucide-react';
+import { Search, ArrowRight, Atom } from 'lucide-react';
 
 interface CatalogProps {
   onSelectGenerator: (kind: GeneratorKind) => void;
@@ -10,13 +10,13 @@ export const GENERATORS: GeneratorMetadata[] = [
   {
     id: 'free-body-diagram',
     title: 'Free Body Diagram Generator',
-    description: 'A dot, block, ball or cart with every force vector acting on it, angle sliders, and components.',
+    description: 'A dot, block, ball or cart with customizable force vectors, angle sliders, and component projections.',
     tags: ['Mechanics', 'Forces', 'Newton Laws', 'AP Physics'],
   },
   {
     id: 'vector-diagram',
     title: 'Vector Diagram Generator',
-    description: 'Up to four vectors added head-to-tail on a Cartesian grid with their resultant vector.',
+    description: 'Up to four vectors added head-to-tail on a Cartesian grid with their auto-calculated resultant vector.',
     tags: ['Kinematics', 'Vectors', 'Resultant'],
   },
   {
@@ -28,13 +28,13 @@ export const GENERATORS: GeneratorMetadata[] = [
   {
     id: 'pulley',
     title: 'Pulley & Atwood Machine Generator',
-    description: 'Objects on strings over pulleys, with tension vectors and masses.',
+    description: 'Objects on strings over single or double pulleys, with tension vectors and hanging masses.',
     tags: ['Mechanics', 'Atwood Machine', 'Tension'],
   },
   {
     id: 'projectile-motion',
     title: 'Projectile Motion Generator',
-    description: 'A ball launched from ground or an elevated cliff, with initial velocity vectors and parabolic flight path.',
+    description: 'A launch from ground or an elevated cliff, with velocity vectors, parabolic arc, apex, and range callouts.',
     tags: ['Kinematics', 'Trajectories', '2D Motion'],
   },
   {
@@ -46,7 +46,7 @@ export const GENERATORS: GeneratorMetadata[] = [
   {
     id: 'spring-scale',
     title: 'Spring Scale Generator',
-    description: 'Calibrated Newton spring scale with customizable force reading, spring coil stretch, and hanging mass.',
+    description: 'Calibrated Newton spring scale with spring coil stretch physics, pointer collar, and hanging load.',
     tags: ['Measurement', 'Hooke Law', 'Lab Instruments'],
   },
   {
@@ -76,9 +76,14 @@ export const Catalog: React.FC<CatalogProps> = ({ onSelectGenerator }) => {
   });
 
   return (
-    <div className="flex flex-col gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div className="flex flex-col gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
       {/* Hero Header */}
       <div className="text-center max-w-3xl mx-auto flex flex-col gap-3">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mx-auto">
+          <Atom className="w-3.5 h-3.5 text-emerald-600" />
+          Technical Physics Vector Studio
+        </div>
+
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Physics figures for your tests and worksheets
         </h1>
@@ -94,8 +99,8 @@ export const Catalog: React.FC<CatalogProps> = ({ onSelectGenerator }) => {
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search figures, like “free body diagram” or “projectile”..."
-            className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-300 bg-white shadow-sm text-sm focus:outline-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
+            placeholder="Search figures, e.g. “free body diagram”, “inclined plane”, “waves”..."
+            className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-300 bg-white shadow-sm text-sm focus:outline-emerald-600 focus:ring-2 focus:ring-emerald-100 transition-all"
           />
         </div>
       </div>
@@ -106,32 +111,32 @@ export const Catalog: React.FC<CatalogProps> = ({ onSelectGenerator }) => {
           <div
             key={gen.id}
             onClick={() => onSelectGenerator(gen.id)}
-            className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm hover:shadow-md hover:border-blue-300 transition-all cursor-pointer flex flex-col justify-between group"
+            className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between hover:shadow-md hover:border-emerald-400 transition-all cursor-pointer group"
           >
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md">
                   {gen.tags[0]}
                 </span>
-                <span className="text-xs text-slate-400 group-hover:text-blue-600 transition-colors">
+                <span className="text-xs text-slate-400 group-hover:text-emerald-600 transition-colors">
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </span>
               </div>
 
-              <h2 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+              <h2 className="text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
                 {gen.title}
               </h2>
 
-              <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 {gen.description}
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-1.5 mt-4 pt-3 border-t border-slate-100">
+            <div className="flex flex-wrap gap-1.5 mt-5 pt-3.5 border-t border-slate-100">
               {gen.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium"
+                  className="text-[11px] bg-slate-50 text-slate-600 px-2 py-0.5 rounded-md font-medium border border-slate-200/60"
                 >
                   {tag}
                 </span>

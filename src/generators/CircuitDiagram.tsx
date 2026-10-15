@@ -241,9 +241,9 @@ export const CircuitDiagram: React.FC<CircuitDiagramProps> = ({ state, onChange 
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
-      {/* Canvas */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <CanvasToolbar svgRef={svgRef} filename="circuit-diagram" />
+      {/* Canvas - Sticky Studio Viewport */}
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+        <CanvasToolbar svgRef={svgRef} filename="circuit-diagram" dimensions={{ width, height }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
           <svg

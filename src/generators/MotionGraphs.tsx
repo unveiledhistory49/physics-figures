@@ -149,9 +149,9 @@ export const MotionGraphs: React.FC<MotionGraphsProps> = ({ state, onChange }) =
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
-      {/* Canvas */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <CanvasToolbar svgRef={svgRef} filename="motion-graph" />
+      {/* Canvas - Sticky Studio Viewport */}
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+        <CanvasToolbar svgRef={svgRef} filename="motion-graph" dimensions={{ width, height }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
           <svg
@@ -263,7 +263,7 @@ export const MotionGraphs: React.FC<MotionGraphsProps> = ({ state, onChange }) =
             <path
               d={fullPathD}
               fill="none"
-              stroke={state.color ? '#2563eb' : '#111827'}
+              stroke={state.color ? '#059669' : '#111827'}
               strokeWidth={3.2}
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -318,7 +318,7 @@ export const MotionGraphs: React.FC<MotionGraphsProps> = ({ state, onChange }) =
             <button
               type="button"
               onClick={addSegment}
-              className="px-2 py-1 text-xs bg-blue-50 text-blue-700 font-semibold rounded hover:bg-blue-100 flex items-center gap-1"
+              className="px-2.5 py-1 text-xs bg-emerald-50 text-emerald-800 font-semibold rounded-lg hover:bg-emerald-100 border border-emerald-200/60 flex items-center gap-1 transition-colors"
             >
               <Plus className="w-3.5 h-3.5" /> Add segment
             </button>

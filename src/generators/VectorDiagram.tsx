@@ -24,7 +24,7 @@ export const defaultVectorDiagramState: VectorDiagramState = {
       dx: 4,
       dy: 1,
       label: { mode: 'text', text: 'A' },
-      color: '#2563eb',
+      color: '#059669',
     },
     {
       id: 'v2',
@@ -32,7 +32,7 @@ export const defaultVectorDiagramState: VectorDiagramState = {
       dx: 1,
       dy: 3,
       label: { mode: 'text', text: 'B' },
-      color: '#059669',
+      color: '#0d9488',
     },
     {
       id: 'v3',
@@ -148,9 +148,9 @@ export const VectorDiagram: React.FC<VectorDiagramProps> = ({
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
-      {/* Visual Canvas */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <CanvasToolbar svgRef={svgRef} filename="vector-diagram" />
+      {/* Visual Canvas - Sticky Studio Viewport */}
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+        <CanvasToolbar svgRef={svgRef} filename="vector-diagram" dimensions={{ width, height }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
           <svg
@@ -273,7 +273,7 @@ export const VectorDiagram: React.FC<VectorDiagramProps> = ({
               <button
                 type="button"
                 onClick={addVector}
-                className="px-2 py-1 text-xs bg-blue-50 text-blue-700 font-semibold rounded hover:bg-blue-100 flex items-center gap-1"
+                className="px-2.5 py-1 text-xs bg-emerald-50 text-emerald-800 font-semibold rounded-lg hover:bg-emerald-100 border border-emerald-200/60 flex items-center gap-1 transition-colors"
               >
                 <Plus className="w-3.5 h-3.5" /> Add vector
               </button>

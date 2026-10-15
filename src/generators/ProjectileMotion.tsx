@@ -87,9 +87,9 @@ export const ProjectileMotion: React.FC<ProjectileMotionProps> = ({
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
-      {/* Canvas */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <CanvasToolbar svgRef={svgRef} filename="projectile-motion" />
+      {/* Canvas - Sticky Studio Viewport */}
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+        <CanvasToolbar svgRef={svgRef} filename="projectile-motion" dimensions={{ width, height }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
           <svg
@@ -126,7 +126,7 @@ export const ProjectileMotion: React.FC<ProjectileMotionProps> = ({
               <path
                 d={pathD}
                 fill="none"
-                stroke={state.color ? '#2563eb' : '#111827'}
+                stroke={state.color ? '#059669' : '#111827'}
                 strokeWidth={2.2}
                 strokeDasharray="6 4"
               />
@@ -137,7 +137,7 @@ export const ProjectileMotion: React.FC<ProjectileMotionProps> = ({
               cx={launchX}
               cy={launchY}
               r={7}
-              fill={state.color ? '#3b82f6' : '#111827'}
+              fill={state.color ? '#10b981' : '#111827'}
               stroke="#111827"
               strokeWidth={1.5}
             />

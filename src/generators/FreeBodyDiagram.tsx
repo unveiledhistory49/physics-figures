@@ -117,8 +117,8 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
   };
 
   // Color theme palettes
-  const forceColor = state.color ? '#2563eb' : '#111827';
-  const componentColor = state.color ? '#0284c7' : '#4b5563';
+  const forceColor = state.color ? '#059669' : '#111827';
+  const componentColor = state.color ? '#047857' : '#4b5563';
   const bodyFill = state.color ? '#f1f5f9' : '#e5e7eb';
   const bodyStroke = '#111827';
 
@@ -194,9 +194,9 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
-      {/* Visual Canvas Area */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <CanvasToolbar svgRef={svgRef} filename="free-body-diagram" />
+      {/* Visual Canvas Area - Sticky Studio Viewport */}
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+        <CanvasToolbar svgRef={svgRef} filename="free-body-diagram" dimensions={{ width, height }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
           <svg

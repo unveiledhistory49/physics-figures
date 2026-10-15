@@ -35,11 +35,11 @@ export const LabelInput: React.FC<LabelInputProps> = ({
   return (
     <div className="flex flex-col gap-1.5 text-sm">
       <div className="flex justify-between items-center text-slate-700 font-medium">
-        <span>{label}</span>
+        <span className="text-xs text-slate-700 font-semibold">{label}</span>
       </div>
 
       {/* Mode switcher */}
-      <div className="flex bg-slate-100 p-0.5 rounded-lg border border-slate-200">
+      <div className="flex bg-slate-100/80 p-0.5 rounded-lg border border-slate-200">
         {modes.map((m) => (
           <button
             key={m.mode}
@@ -47,7 +47,7 @@ export const LabelInput: React.FC<LabelInputProps> = ({
             onClick={() => onChange({ ...value, mode: m.mode })}
             className={`flex-1 py-1 px-2 text-xs font-medium rounded-md transition-all flex items-center justify-center gap-1.5 ${
               value.mode === m.mode
-                ? 'bg-white text-slate-900 shadow-sm font-semibold'
+                ? 'bg-white text-emerald-800 shadow-sm font-semibold border border-slate-200/80'
                 : 'text-slate-500 hover:text-slate-800'
             }`}
           >
@@ -65,7 +65,7 @@ export const LabelInput: React.FC<LabelInputProps> = ({
             value={value.text}
             placeholder={placeholder}
             onChange={(e) => onChange({ ...value, text: e.target.value })}
-            className="w-full text-xs font-serif italic border border-slate-300 rounded px-2.5 py-1.5 bg-white focus:outline-blue-500"
+            className="w-full text-xs font-serif italic border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white focus:outline-emerald-500 focus:ring-1 focus:ring-emerald-500"
           />
 
           {/* Quick symbol insertion chips */}

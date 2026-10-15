@@ -52,8 +52,8 @@ export const InclinedPlane: React.FC<InclinedPlaneProps> = ({
   const bodyX = rampStartX + rampBaseLength * (1 - slopeRatio);
   const bodyY = groundY - rampHeight * (1 - slopeRatio);
 
-  const forceColor = state.color ? '#2563eb' : '#111827';
-  const compColor = state.color ? '#0284c7' : '#6b7280';
+  const forceColor = state.color ? '#059669' : '#111827';
+  const compColor = state.color ? '#047857' : '#6b7280';
 
   // Ramp normal and parallel directions
   const normalAngle = 90 + state.angle;
@@ -75,9 +75,9 @@ export const InclinedPlane: React.FC<InclinedPlaneProps> = ({
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
-      {/* Visual Canvas */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <CanvasToolbar svgRef={svgRef} filename="inclined-plane" />
+      {/* Visual Canvas - Sticky Studio Viewport */}
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+        <CanvasToolbar svgRef={svgRef} filename="inclined-plane" dimensions={{ width, height }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
           <svg

@@ -84,14 +84,18 @@ export const App: React.FC = () => {
           <Catalog onSelectGenerator={setActiveGenerator} />
         ) : (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex flex-col gap-6">
-            <div className="flex items-center justify-between no-print border-b border-slate-200 pb-3">
+            <div className="flex items-center justify-between no-print border-b border-slate-200/80 pb-3">
               <button
                 type="button"
                 onClick={() => setActiveGenerator(null)}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1"
+                className="text-xs font-semibold text-emerald-800 hover:text-emerald-900 transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80"
               >
-                ← Back to all figures
+                <span>←</span>
+                <span>Back to all figures</span>
               </button>
+              <span className="text-xs font-mono text-slate-600 uppercase tracking-wider bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200/60 hidden sm:inline-block">
+                Studio Active
+              </span>
             </div>
 
             {activeGenerator === 'free-body-diagram' && (
@@ -128,35 +132,37 @@ export const App: React.FC = () => {
       {/* Footer */}
       <footer className="mt-auto border-t border-slate-200 bg-white py-6 no-print">
         <div className="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span>
-            Physics Figures — Printable vector figures for tests and worksheets.
-          </span>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block" />
+            <span className="font-medium text-slate-700">Physics Figures</span>
+            <span>— Publication-grade vector studio for tests and worksheets.</span>
+          </div>
+          <div className="flex items-center gap-4 text-xs font-medium">
             <a
-              href="https://physicsfigures.com/"
+              href="https://math-figures.vercel.app"
               target="_blank"
               rel="noreferrer"
-              className="hover:underline"
+              className="text-slate-600 hover:text-amber-600 transition-colors"
             >
-              physicsfigures.com
+              Math Figures
             </a>
             <span className="text-slate-300">·</span>
             <a
-              href="https://mathfigures.com/"
+              href="https://chemistry-figures.vercel.app"
               target="_blank"
               rel="noreferrer"
-              className="hover:underline"
+              className="text-slate-600 hover:text-blue-800 transition-colors"
             >
-              mathfigures.com
+              Chemistry Figures
             </a>
             <span className="text-slate-300">·</span>
             <a
-              href="https://chemistryfigures.com/"
+              href="https://github.com/unveiledhistory49/physics-figures"
               target="_blank"
               rel="noreferrer"
-              className="hover:underline"
+              className="text-slate-600 hover:text-slate-900 transition-colors"
             >
-              chemistryfigures.com
+              GitHub
             </a>
           </div>
         </div>

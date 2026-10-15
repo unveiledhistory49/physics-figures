@@ -55,13 +55,13 @@ export const Pulley: React.FC<PulleyProps> = ({ state, onChange }) => {
   const t2Arrow = computeArrow(stringRightX, mass2Y, 90, 50, 11, 8);
   const g2Arrow = computeArrow(stringRightX, mass2Y + m2Height, 270, 50 * state.mass2, 11, 8);
 
-  const forceColor = state.color ? '#2563eb' : '#111827';
+  const forceColor = state.color ? '#059669' : '#111827';
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
-      {/* Canvas */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <CanvasToolbar svgRef={svgRef} filename="pulley-system" />
+      {/* Canvas - Sticky Studio Viewport */}
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+        <CanvasToolbar svgRef={svgRef} filename="pulley-system" dimensions={{ width: 480, height: 440 }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
           <svg

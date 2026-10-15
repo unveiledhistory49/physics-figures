@@ -24,8 +24,8 @@ export const AnglePicker: React.FC<AnglePickerProps> = ({
   return (
     <div className="flex flex-col gap-2 text-sm">
       <div className="flex justify-between items-center text-slate-700 font-medium">
-        <span className="flex items-center gap-1.5">
-          <Compass className="w-4 h-4 text-slate-400" />
+        <span className="flex items-center gap-1.5 text-xs text-slate-700 font-semibold">
+          <Compass className="w-3.5 h-3.5 text-emerald-600" />
           {label}
         </span>
         <div className="flex items-center gap-1">
@@ -38,7 +38,7 @@ export const AnglePicker: React.FC<AnglePickerProps> = ({
               const val = parseInt(e.target.value) || 0;
               onChange(((val % 360) + 360) % 360);
             }}
-            className="w-14 text-xs font-mono border border-slate-300 rounded px-1.5 py-0.5 text-right bg-white focus:outline-blue-500"
+            className="w-14 text-xs font-mono border border-slate-300 rounded px-1.5 py-0.5 text-right bg-white focus:outline-emerald-500"
           />
           <span className="text-xs text-slate-500">°</span>
         </div>
@@ -50,7 +50,7 @@ export const AnglePicker: React.FC<AnglePickerProps> = ({
         max={359}
         value={normValue}
         onChange={(e) => onChange(parseInt(e.target.value))}
-        className="w-full accent-blue-600 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none"
+        className="w-full accent-emerald-600 cursor-pointer h-1.5 bg-slate-200 rounded-lg appearance-none transition-all"
       />
 
       <div className="grid grid-cols-4 gap-1.5 mt-0.5">
@@ -61,9 +61,9 @@ export const AnglePicker: React.FC<AnglePickerProps> = ({
               key={dir.name}
               type="button"
               onClick={() => onChange(dir.deg)}
-              className={`py-1 text-xs font-medium rounded border transition-colors ${
+              className={`py-1 text-xs font-medium rounded-lg border transition-colors ${
                 isActive
-                  ? 'bg-blue-50 border-blue-300 text-blue-700 font-semibold'
+                  ? 'bg-emerald-50 border-emerald-300 text-emerald-800 font-semibold'
                   : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
               }`}
             >
