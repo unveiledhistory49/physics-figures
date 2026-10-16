@@ -76,7 +76,7 @@ export const InclinedPlane: React.FC<InclinedPlaneProps> = ({
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
       {/* Visual Canvas - Sticky Studio Viewport */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24 order-1 lg:order-2">
         <CanvasToolbar svgRef={svgRef} filename="inclined-plane" dimensions={{ width, height }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
@@ -310,7 +310,7 @@ export const InclinedPlane: React.FC<InclinedPlaneProps> = ({
       </div>
 
       {/* Settings Sidebar */}
-      <div className="w-full lg:w-96 flex flex-col gap-5 no-print">
+      <div className="w-full lg:w-96 flex flex-col gap-5 order-2 lg:order-1 no-print">
         <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col gap-4">
           <h3 className="font-semibold text-slate-900 text-sm border-b border-slate-100 pb-2">
             Incline Geometry

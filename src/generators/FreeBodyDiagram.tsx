@@ -17,7 +17,8 @@ import { SegmentedControl } from '../components/Controls/SegmentedControl';
 import { AnglePicker } from '../components/Controls/AnglePicker';
 import { LabelInput } from '../components/Controls/LabelInput';
 import { Checkbox } from '../components/Controls/Checkbox';
-import { Plus, Trash2 } from 'lucide-react';
+import { AccordionSection } from '../components/Controls/AccordionSection';
+import { Plus, Trash2, Box, Move, Navigation, Palette, Sparkles } from 'lucide-react';
 
 interface FreeBodyDiagramProps {
   state: FreeBodyDiagramState;
@@ -192,10 +193,62 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
     }
   };
 
+  const applyPreset = (preset: 'basic' | 'friction' | 'hanging' | 'slope') => {
+    switch (preset) {
+      case 'basic':
+        onChange({
+          ...state,
+          body: 'block',
+          bodySize: 1.0,
+          forces: [
+            { id: 'f_n', name: 'Normal', direction: 90, length: 1.0, label: { mode: 'text', text: 'F_N' } },
+            { id: 'f_g', name: 'Gravity', direction: 270, length: 1.0, label: { mode: 'text', text: 'F_g' } },
+          ],
+        });
+        break;
+      case 'friction':
+        onChange({
+          ...state,
+          body: 'block',
+          bodySize: 1.0,
+          forces: [
+            { id: 'f_n', name: 'Normal', direction: 90, length: 1.0, label: { mode: 'text', text: 'F_N' } },
+            { id: 'f_g', name: 'Gravity', direction: 270, length: 1.0, label: { mode: 'text', text: 'F_g' } },
+            { id: 'f_a', name: 'Applied', direction: 0, length: 1.3, label: { mode: 'text', text: 'F_A' } },
+            { id: 'f_f', name: 'Friction', direction: 180, length: 0.8, label: { mode: 'text', text: 'F_f' } },
+          ],
+        });
+        break;
+      case 'hanging':
+        onChange({
+          ...state,
+          body: 'ball',
+          bodySize: 1.0,
+          forces: [
+            { id: 'f_t', name: 'Tension', direction: 90, length: 1.2, label: { mode: 'text', text: 'T' } },
+            { id: 'f_g', name: 'Gravity', direction: 270, length: 1.2, label: { mode: 'text', text: 'F_g' } },
+          ],
+        });
+        break;
+      case 'slope':
+        onChange({
+          ...state,
+          body: 'block',
+          bodySize: 1.0,
+          forces: [
+            { id: 'f_n', name: 'Normal', direction: 120, length: 1.0, label: { mode: 'text', text: 'F_N' } },
+            { id: 'f_g', name: 'Gravity', direction: 270, length: 1.2, label: { mode: 'text', text: 'F_g' } },
+            { id: 'f_f', name: 'Friction', direction: 30, length: 0.7, label: { mode: 'text', text: 'F_f' } },
+          ],
+        });
+        break;
+    }
+  };
+
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
       {/* Visual Canvas Area - Sticky Studio Viewport */}
-      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24">
+      <div className="flex-1 w-full flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden lg:sticky lg:top-24 order-1 lg:order-2">
         <CanvasToolbar svgRef={svgRef} filename="free-body-diagram" dimensions={{ width, height }} />
 
         <div className="p-6 flex items-center justify-center bg-slate-50/50 min-h-[460px] figure-canvas-container overflow-auto">
@@ -391,15 +444,56 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
         </div>
       </div>
 
-      {/* Editor Controls Sidebar */}
-      <div className="w-full lg:w-96 flex flex-col gap-5 no-print">
-        {/* Physical Body Settings */}
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col gap-3.5">
-          <h3 className="font-semibold text-slate-900 text-sm border-b border-slate-100 pb-2">
-            Central Body
-          </h3>
+      {/* Editor Controls Sidebar (Left on desktop) */}
+      <div className="w-full lg:w-96 flex flex-col gap-4 order-2 lg:order-1 no-print">
+        {/* Quick Example Presets */}
+        <div className="bg-white rounded-xl border border-slate-200/90 p-3.5 shadow-sm flex flex-col gap-2">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Start from an example:</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            <button
+              type="button"
+              onClick={() => applyPreset('basic')}
+              className="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-50 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-200 border border-slate-200 text-slate-700 transition-colors"
+            >
+              Normal + Gravity
+            </button>
+            <button
+              type="button"
+              onClick={() => applyPreset('friction')}
+              className="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-50 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-200 border border-slate-200 text-slate-700 transition-colors"
+            >
+              Box with Friction
+            </button>
+            <button
+              type="button"
+              onClick={() => applyPreset('slope')}
+              className="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-50 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-200 border border-slate-200 text-slate-700 transition-colors"
+            >
+              Static on Incline
+            </button>
+            <button
+              type="button"
+              onClick={() => applyPreset('hanging')}
+              className="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-50 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-200 border border-slate-200 text-slate-700 transition-colors"
+            >
+              Hanging Mass
+            </button>
+          </div>
+        </div>
+
+        {/* Central Body Accordion */}
+        <AccordionSection
+          icon={<Box className="w-3.5 h-3.5" />}
+          title="Central Body"
+          summary={`${state.body.charAt(0).toUpperCase() + state.body.slice(1)}, ${state.bodySize}×`}
+          defaultOpen={true}
+          accent="emerald"
+        >
           <SegmentedControl<BodyType>
-            label="Body representation"
+            label="Representation"
             value={state.body}
             options={[
               { value: 'dot', label: 'Dot' },
@@ -411,7 +505,7 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
           />
           {state.body !== 'dot' && (
             <Slider
-              label="Body size"
+              label="Body scale"
               value={state.bodySize}
               min={0.5}
               max={2.0}
@@ -420,19 +514,19 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
               onChange={(bodySize) => onChange({ ...state, bodySize })}
             />
           )}
-        </div>
+        </AccordionSection>
 
-        {/* Forces List */}
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col gap-4">
-          <div className="flex justify-between items-center border-b border-slate-100 pb-2">
-            <h3 className="font-semibold text-slate-900 text-sm">
-              Forces ({state.forces.length}/8)
-            </h3>
-          </div>
-
+        {/* Forces Accordion */}
+        <AccordionSection
+          icon={<Move className="w-3.5 h-3.5" />}
+          title="Forces"
+          summary={`${state.forces.length} active (max 8)`}
+          defaultOpen={true}
+          accent="emerald"
+        >
           {/* Quick preset buttons */}
           <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-medium text-slate-500">Add force preset:</span>
+            <span className="text-xs font-medium text-slate-500">Quick add force:</span>
             <div className="flex flex-wrap gap-1.5">
               <button
                 type="button"
@@ -497,7 +591,7 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
                 />
 
                 <Slider
-                  label="Length"
+                  label="Magnitude"
                   value={force.length}
                   min={0.25}
                   max={2.0}
@@ -512,7 +606,6 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
                   onChange={(label) => updateForce(force.id, { label })}
                 />
 
-                {/* Additional force geometry checkboxes */}
                 <div className="grid grid-cols-2 gap-2 pt-1">
                   <Checkbox
                     label="Angle arc"
@@ -528,13 +621,53 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
               </div>
             ))}
           </div>
-        </div>
+        </AccordionSection>
 
-        {/* Global Figure Settings */}
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col gap-3.5">
-          <h3 className="font-semibold text-slate-900 text-sm border-b border-slate-100 pb-2">
-            Figure & Notation Options
-          </h3>
+        {/* Kinematics Indicators Accordion */}
+        <AccordionSection
+          icon={<Navigation className="w-3.5 h-3.5" />}
+          title="Kinematics Indicators"
+          summary={state.showVelocity || state.showAcceleration ? 'Active' : 'Off'}
+          defaultOpen={false}
+          accent="emerald"
+        >
+          <Checkbox
+            label="Show velocity vector (v⃗)"
+            description="Dashed vector beside the body"
+            checked={state.showVelocity}
+            onChange={(showVelocity) => onChange({ ...state, showVelocity })}
+          />
+          {state.showVelocity && (
+            <AnglePicker
+              label="Velocity direction"
+              value={state.velocityAngle}
+              onChange={(velocityAngle) => onChange({ ...state, velocityAngle })}
+            />
+          )}
+
+          <Checkbox
+            label="Show acceleration vector (a⃗)"
+            description="Dashed vector beside the body"
+            checked={state.showAcceleration}
+            onChange={(showAcceleration) => onChange({ ...state, showAcceleration })}
+          />
+          {state.showAcceleration && (
+            <AnglePicker
+              label="Acceleration direction"
+              value={state.accelerationAngle}
+              onChange={(accelerationAngle) => onChange({ ...state, accelerationAngle })}
+            />
+          )}
+        </AccordionSection>
+
+        {/* Figure & Notation Accordion */}
+        <AccordionSection
+          icon={<Palette className="w-3.5 h-3.5" />}
+          title="Notation & Display"
+          summary={`Notation: ${state.vectorNotation}, ${state.color ? 'Color' : 'Monochrome'}`}
+          defaultOpen={false}
+          accent="emerald"
+        >
           <SegmentedControl
             label="Vector notation"
             value={state.vectorNotation}
@@ -548,29 +681,18 @@ export const FreeBodyDiagram: React.FC<FreeBodyDiagramProps> = ({
 
           <div className="flex flex-col gap-2 pt-2 border-t border-slate-100">
             <Checkbox
-              label="Show velocity vector (v⃗)"
-              description="Dashed green vector beside the body"
-              checked={state.showVelocity}
-              onChange={(showVelocity) => onChange({ ...state, showVelocity })}
-            />
-            <Checkbox
-              label="Show acceleration vector (a⃗)"
-              description="Dashed red vector beside the body"
-              checked={state.showAcceleration}
-              onChange={(showAcceleration) => onChange({ ...state, showAcceleration })}
-            />
-            <Checkbox
               label="Mirror (flip horizontal)"
               checked={state.mirror}
               onChange={(mirror) => onChange({ ...state, mirror })}
             />
             <Checkbox
               label="Color (for presentation slides)"
+              description="Standard textbook blue & red accents"
               checked={state.color}
               onChange={(color) => onChange({ ...state, color })}
             />
           </div>
-        </div>
+        </AccordionSection>
       </div>
     </div>
   );
